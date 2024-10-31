@@ -4,12 +4,27 @@ Code for the paper "Bilinear Sequence Regression: Model for Learning from Long S
 Read the paper here: [link](https://arxiv.org/pdf/2410.18858)
 
 ## Dependencies for Python
-
+We use Python 3.10 with the following libraries
 - Torch 1.12.1
 - Numpy 1.23.2
 - Pandas 1.4.4
 - CVXPY 1.3.0
 - Matplotlib 3.5.3
+
+## Dependencies for Julia
+We use Julia 1.11.1 with the following libraries
+- CSV v0.10.14
+- DataFrames v1.7.0
+- HCubature v1.7.0
+- NLsolve v4.5.1
+- Plots v1.40.8
+- Polynomials v4.0.11
+- QuadGK v2.11.1
+- Roots v2.2.1
+- Statistics v1.11.1
+- StatsPlots v0.15.7
+- LinearAlgebra v1.11.0
+- Random v1.11.0
 
 ## Scripts description
 
