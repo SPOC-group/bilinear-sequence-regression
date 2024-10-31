@@ -1,5 +1,6 @@
 import numpy as np
 import cvxpy as cp
+import sys
 
 def min_norm(X, y, S):
     N, D, L = X.shape
@@ -19,12 +20,16 @@ def min_norm(X, y, S):
 
 
 if __name__=="__main__":
-    D = 50
-    rho = 0.2
-    beta = 0.5
-    alpha = 0.2
+    D = int(sys.argv[1])
+    alpha = float(sys.argv[2]) 
+    rho = float(sys.argv[3])
+    beta = float(sys.argv[4])
 
-    L = int(beta*D)
+
+    L = D // beta
+    rho = rho / beta
+    
+
     M = int(rho*D)
     N = int(alpha*D*L) 
 

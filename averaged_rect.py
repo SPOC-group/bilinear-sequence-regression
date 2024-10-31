@@ -26,8 +26,6 @@ class NetworkStudent(nn.Module):
         self.D = D
         self.M = M     
         self.L = L   
-        # self.fc1U = nn.Parameter(torch.normal(0, 1e-4, (M, D), requires_grad=True))
-        # self.fc1V = nn.Parameter(torch.normal(0, 1e-4, (D, M), requires_grad=True))
         self.fc1U = nn.Parameter(torch.normal(0, 1, (M, D), requires_grad=True))
         self.fc1V = nn.Parameter(torch.normal(0, 1, (L, M), requires_grad=True))
 
@@ -37,9 +35,9 @@ class NetworkStudent(nn.Module):
         return torch.einsum("ij,nij", S, x) / np.sqrt(self.M) / np.sqrt(self.L * self.D) 
 
 
-def main(D, alpha, beta, beta_star, L, lr, T, samples, averages):
-    M = int(D * beta)
-    M_star = int(D * beta_star)
+def main(D, alpha, rho, beta, L, lr, T, samples, averages):
+    M = int(D * rho)
+    M_star = int(D * rho)
     N = int(D*L * alpha)
 
     gen_error = np.ones((samples))
@@ -93,7 +91,7 @@ def main(D, alpha, beta, beta_star, L, lr, T, samples, averages):
 
         
     # Save the results
-    np.save(f"data_averaged/gen_error_{D}_{alpha}_{beta}_{beta_star}_{lr}.npy", gen_error)
+    np.save(f"averaged/gen_error_{D}_{alpha}_{rho}_{beta}_{lr}.npy", gen_error)
 
 
 
@@ -101,15 +99,16 @@ if __name__ == '__main__':
     # Get the parameters from the command line
     D = int(sys.argv[1])
     alpha = float(sys.argv[2]) 
-    beta = float(sys.argv[3])
-    beta_star = float(sys.argv[4])
+    rho = float(sys.argv[3])
+    beta = float(sys.argv[4])
 
 
-    L = D // 2
-    # L = D
+    L = D // beta
+    rho = rho / beta
     
     T = int(50000)
     samples = 4
     lr = 0.1
+    averages = 64
 
-    main(D, alpha, beta, beta_star, L, lr, T, samples, averages=64)
+    main(D, alpha, rho, beta, L, lr, T, samples, averages)

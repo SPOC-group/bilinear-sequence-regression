@@ -27,8 +27,8 @@ class NetworkStudent(nn.Module):
         self.D = D
         self.M = M     
         self.L = L   
-        self.fc1U = nn.Parameter(torch.normal(0, 1, (M, D), requires_grad=True))
-        self.fc1V = nn.Parameter(torch.normal(0, 1, (L, M), requires_grad=True))
+        self.fc1U = nn.Parameter(torch.normal(0, 1e-4, (M, D), requires_grad=True))
+        self.fc1V = nn.Parameter(torch.normal(0, 1e-4, (D, M), requires_grad=True))
 
 
     def forward(self, x):
@@ -104,8 +104,8 @@ def main(D, alpha, rho, beta, L, lr, T, samples):
 
         
     # Save the results
-    np.save(f"standard/gen_error_{D}_{alpha}_{rho}_{beta}_{lr}.npy", gen_error)
-    np.save(f"standard/train_error_{D}_{alpha}_{rho}_{beta}_{lr}.npy", train_error)
+    np.save(f"standard/zero_gen_error_{D}_{alpha}_{rho}_{beta}_{lr}.npy", gen_error)
+    np.save(f"standard/zero_train_error_{D}_{alpha}_{rho}_{beta}_{lr}.npy", train_error)
 
 
 
